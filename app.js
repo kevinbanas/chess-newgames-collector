@@ -1,30 +1,41 @@
 var Chess = require('./node_modules/chess.js/chess').Chess;
-var chess = new Chess();
 var fs = require('file-system');
 
+var chess = new Chess();
 var myPositions = [];
 var myFiles = [];
 
-function processFile() {
-    console.log(myPositions);
+function processFile(input) {
+    var file = './fens/' + input;
+    fs.readFile(file, function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        var result = data.toString();
+        console.log(result);
+        myPositions.push(result);
+    });
 }
 
-function collectFiles() {
-    console.log(myFiles)
+function collectFenFiles() {
+    fs.readdir('./fens', function read(err, files) {
+        if (err) {
+            throw err;
+        }
+        myFiles = files;
+        collectFens();
+    });
 }
 
-fs.readFile('./fens/french-advance.txt', function read(err, data) {
-    if (err) {
-        throw err;
+function collectFens() {
+    for (var i=0; i<myFiles.length; i++) {
+        processFile(myFiles[i]);
     }
-    myPositions.push(data);
-    processFile();
-});
+    printFenStrings();
+}
 
-fs.readdir('./fens', function read(err, files) {
-    if (err) {
-        throw err;
-    }
-    myFiles = files;
-    collectFiles();
-})
+function printFenStrings() {
+    console.log(myPositions)
+}
+
+collectFenFiles();
