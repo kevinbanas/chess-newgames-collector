@@ -1,0 +1,27 @@
+{
+  "name": "chess-games-collector",
+  "version": "1.0.0",
+  "description": "Chess games collector",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinbanas/chess-newgames-collector.git"
+  },
+  "keywords": [
+    "chess",
+    "collector",
+    "openings"
+  ],
+  "author": "kevin banas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinbanas/chess-newgames-collector/issues"
+  },
+  "homepage": "https://github.com/kevinbanas/chess-newgames-collector#readme",
+  "dependencies": {
+    "chess.js": "^0.10.2"
+  }
+}
