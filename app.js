@@ -12,15 +12,22 @@ var gStart = 0,
 	currentIndex = 0,
 	counter = 1,
 	matchedCounter = 0,
+	whiteWins = 0,
+	blackWins = 0,
+	draws = 0,
 	holderString = '',
 	gameMoves = [],
 	MatchedGames = [],
 	arrayOfGamesMoves = [];
 
+var blackWon = /0\-1/;
+var whiteWon = /1\-0/;
+var drawnGame = /1\/2\-1\/2/;
+
 var fenFiles = collectFenFiles();
 var pgnFiles = collectPgnFiles();
 var recentGames = fs.readFileSync("./pgns/twic1175.pgn").toString();
-var singleFen = fs.readFileSync("./fens/match-test.txt").toString();
+var singleFen = fs.readFileSync("./fens/french-general.txt").toString();
 
 
 function getFenStringFromFile(input) {
@@ -59,7 +66,7 @@ function getOneGamesMovesAsString() {
 		holderString += recentGames[currentIndex];
 		currentIndex++;
 	}
-	trimGameResult();
+	// trimGameResult();
 }
 
 // cleans up holderString by trimming game result from the end
@@ -109,6 +116,24 @@ function extractGameMoves(game) {
 	// the array gameMoves now has a game's moves
 }
 
+function determineWinner() {
+	var result = gameMoves.slice(-1);
+	if (whiteWon.test(result)) {
+		whiteWins++;
+	} else if (blackWon.test(result)) {
+		blackWins++;
+	} else {
+		draws++;
+	}
+}
+
+function showStats() {
+	console.log("There were " + arrayOfGamesMoves.length + ' total games in this set and ' + matchedCounter + ' of them matched your desired position');
+	console.log('White wins: ' + whiteWins + '/' + matchedCounter + ' = ' + (whiteWins / matchedCounter * 100).toFixed(1) + '%');
+	console.log('Black wins: ' + blackWins + '/' + matchedCounter + ' = ' + (blackWins / matchedCounter * 100).toFixed(1) + '%');
+	console.log('Draws: ' + draws + '/' + matchedCounter + ' = ' + (draws / matchedCounter * 100).toFixed(1) + '%');
+}
+
 function testAgainstFenString() {
 	// console.log(gameMoves);
 	var match = 0;
@@ -130,11 +155,14 @@ function testAgainstFenString() {
 		var x = gameMoves.join(' ');
 		MatchedGames.push(x);
 		console.log('game is a match! (' + matchedCounter + ')');
-	} else {
-		console.log('no match');
-	}
+		determineWinner();
+	} 
+	// else {
+	// 	console.log('no match');
+	// }
 }
 
 getAllGamesMovesAsStrings();
 testAllGames();
 console.log(MatchedGames);
+showStats();
