@@ -1,7 +1,5 @@
 var Chess = require('./node_modules/chess.js/chess').Chess;
 var fs = require('file-system');
-var express = require('express');
-// var app = express();
 
 var chess = new Chess();
 
@@ -16,8 +14,11 @@ var gStart = 0,
 	blackWins = 0,
 	draws = 0,
 	holderString = '',
+	twicStart = 1140,
+	multipleTwicFilesGameTotal = 0,
 	gameMoves = [],
 	MatchedGames = [],
+	allPgns = [],
 	arrayOfGamesMoves = [];
 
 var blackWon = /0\-1/;
@@ -26,8 +27,8 @@ var drawnGame = /1\/2\-1\/2/;
 
 var fenFiles = collectFenFiles();
 var pgnFiles = collectPgnFiles();
-var recentGames = fs.readFileSync("./pgns/twic1175.pgn").toString();
-var singleFen = fs.readFileSync("./fens/french-general.txt").toString();
+var recentGames = fs.readFileSync("./pgns/twic" + twicStart + ".pgn").toString();
+var singleFen = fs.readFileSync("./fens/d4-e6-c4-b6.txt").toString();
 
 
 function getFenStringFromFile(input) {
@@ -69,6 +70,17 @@ function getOneGamesMovesAsString() {
 	// trimGameResult();
 }
 
+function storePgn() {
+	var pgnToStore = '';
+	currentIndex = recentGames.indexOf('[Event ', (currentIndex + 1));
+	while ((recentGames[currentIndex] !== '[') && (currentIndex !== recentGames.length)) {
+		pgnToStore += recentGames[currentIndex];
+		currentIndex++;
+	}
+	allPgns.push(pgnToStore);
+	console.log(allPgns);
+}
+
 // cleans up holderString by trimming game result from the end
 function trimGameResult() {
 	holderString = holderString.replace('1-0', '');
@@ -77,6 +89,7 @@ function trimGameResult() {
 }
 
 function getAllGamesMovesAsStrings() {
+	currentIndex = 0; // needs to be reset for looped analysis on multiple files to work
 	while (currentIndex < recentGames.length) {
 		getOneGamesMovesAsString();
 		arrayOfGamesMoves.push(holderString);
@@ -128,10 +141,11 @@ function determineWinner() {
 }
 
 function showStats() {
-	console.log("There were " + arrayOfGamesMoves.length + ' total games in this set and ' + matchedCounter + ' of them matched your desired position');
+	console.log("There were " + multipleTwicFilesGameTotal + ' total games in this set and ' + matchedCounter + ' of them matched your desired position');
 	console.log('White wins: ' + whiteWins + '/' + matchedCounter + ' = ' + (whiteWins / matchedCounter * 100).toFixed(1) + '%');
 	console.log('Black wins: ' + blackWins + '/' + matchedCounter + ' = ' + (blackWins / matchedCounter * 100).toFixed(1) + '%');
 	console.log('Draws: ' + draws + '/' + matchedCounter + ' = ' + (draws / matchedCounter * 100).toFixed(1) + '%');
+	console.log('White scores ' + ((whiteWins + draws/2)/matchedCounter*100).toFixed(2) + '%')
 }
 
 function testAgainstFenString() {
@@ -141,7 +155,7 @@ function testAgainstFenString() {
 		chess.move(gameMoves[i]);
 		if (chess.fen().slice(-1) > singleFen.slice(-1)) {
 			break;
-			// if the position you're looking for has already been passed, it doesn't test the remaining moves
+			// if the move # of your FEN has already been exceeded without a match, it doesn't test the remaining moves
 		}
 		if (chess.fen() === singleFen) {
 			match = 1;
@@ -157,12 +171,28 @@ function testAgainstFenString() {
 		console.log('game is a match! (' + matchedCounter + ')');
 		determineWinner();
 	} 
-	// else {
-	// 	console.log('no match');
-	// }
 }
 
-getAllGamesMovesAsStrings();
-testAllGames();
-console.log(MatchedGames);
-showStats();
+function checkMultipleTwicFiles() {
+
+	while (twicStart <= 1150) {
+		// console.log(twicStart)
+		getAllGamesMovesAsStrings();
+		testAllGames();
+		twicStart++;
+		recentGames = fs.readFileSync("./pgns/twic" + twicStart + ".pgn").toString();
+		multipleTwicFilesGameTotal += arrayOfGamesMoves.length;
+		console.log(multipleTwicFilesGameTotal);
+		// console.log(MatchedGames);
+	}
+	showStats();
+}
+
+// storePgn();
+// getAllGamesMovesAsStrings();
+
+// testAllGames();
+// console.log(MatchedGames);
+// showStats();
+
+checkMultipleTwicFiles();
