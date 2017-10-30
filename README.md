@@ -5,8 +5,7 @@ The app requires that you pass it a line you wish to test for matches within the
 
 A sample output might be:
 
-d4-d5-c4-nc6-nc3
-*****
+(d4-d5-c4-nc6-nc3)
 There were 173626 total games in this set and 66 of them matched your desired position
 White wins: 28/66 = 42.4%
 Black wins: 21/66 = 31.8%
