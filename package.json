@@ -4,7 +4,7 @@
   "description": "Chess games collector",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha || true"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,9 @@
     "chess.js": "^0.10.2",
     "file-system": "^2.2.2",
     "unzip": "file:node_modules\\unzip"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
   }
 }

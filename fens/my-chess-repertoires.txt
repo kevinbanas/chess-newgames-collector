@@ -1,0 +1,86 @@
+
+Repertoire as Black
+===================
+vs. 4 most common moves:
+-----
+If: 1.c4 b6
+   If: 2.d4 e6 (English Defense x1)
+      If: 3.a3 g6
+      If: 3.e4 Bb7 
+         If: 4.Bd3 Bb4+
+         If: 4.d5 Bb4+
+            If: 5.Bd2 Qe7
+               If: 6.Nc3 exd5 -/+
+         If: 4.Nc3 Bb4
+            If: 5.f3 Ne7
+               If: 6.Ne2 O-O 7.a3 Bxc3 8.Nxc3 f5 ==
+            If: 5.Qc2 Qh4
+               If: 6.Bd3 f5
+               If: 6.d5 Bxc3+ 7.bxc3 f5 ==
+            If: 5.Bd3
+   If: 2.Nc3 e6
+      If: 3.
+
+If: 1.e4 e6 (French Defense x1)
+   If: 2.d4 d5
+      If: 3.Nc3 (Bb4 or Nf6) -- still deciding
+      If: 3.Nd2 h6 (he avoids the Winawer)
+         If: 4.e5 c5
+            If: 5.c3 (cxd4 or Nc6) -- still deciding
+      If: 3.e5 c5 4.c3 Nc6 
+         If: 5.Nf3 Qb6 (when he plays the advance)
+            If: 6.a3 Nh6
+            If: 6.
+         If: (***) -- get info on at least one more feasible move here
+      If: 3.exd5 exd5 
+         If: 4.Nf3 Bg4
+            If: 5.Be2 Bd6
+               If: 6.O-O Nf6
+                  If: 7.Bg5 O-O
+                     If: 8.Nc3 Bxf3 9.Bxf3 c6
+         If: 4.Bd3 c5
+            If: 5.dxc5 Bxc5 6.Nf3 Nf6
+               If: 7.O-O O-O 8. Nbd2 h6
+               If: 7.Nc3 O-O 8.O-O h6
+               If: 7.Qe2+ Be6
+            If: 5.c3 Nc6
+            If: 5.Nf3 (Nc6 or c4) -- still deciding
+         If: 4.Nc3 c6
+         If: 4.c4 Nf6
+   If: 2.c4 c5
+      If: 3.Nf3 Nc6
+      If: 3.f4 Nc6
+      If: 3.Nc3 Nc6
+
+If: 1.d4 e6
+   If: 2.e4 d5 (French Defense x2)
+      (See above)
+   If: 2.c4 b6 (English Defense x2)
+      (See above)
+
+If: 1.Nf3
+
+
+vs. less common moves:
+-----
+If: 1.g3
+If: 1.b3
+If: 1.Nc3
+
+
+
+Repertoire as White
+===================
+1.d4
+   If: 1...f5 2.g3 (playing against the Dutch)
+   If: 1...d5 2.c4 (playing the Queen's Gambit)
+      If: 2...e6 3.Nf3
+         If: 3...Nf6 4.Nc3
+            If: 4...Bb4 5.Bg5
+               If: 5...dxc4 6.e4 (x1. kramnik beating carlsen in 24 moves: http://www.chessgames.com/perl/chessgame?gid=1455315)
+            If: 4...dxc4 5.e4
+               If: 5...Bb4 6.Bg5 (x2. just a different move order)
+   If: 1...Nf6 2.c4
+   If: 1...e6 2.c4
+   If: 1...Nc6 2.d5
+      If: 2...Ne5 3.e4
