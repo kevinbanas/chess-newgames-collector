@@ -4,4 +4,4 @@ const gameparser = require('./gameParser');
 var severalGames = gameparser.extractGamesFromPgnString(gameparser.severalPgns);
 
 // prints game outcome stats for all games that match with a given fen string
-var allGamesStats = gameparser.testAllGamesAgainstFen(severalGames, gameparser.singleFen);
+var allGamesStats = gameparser.testAllGamesAgainstFen(severalGames, gameparser.singleFen, gameparser.gameStats);

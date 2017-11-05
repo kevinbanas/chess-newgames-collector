@@ -3,9 +3,9 @@ var fs = require('file-system');
 
 var chess = new Chess();
 var gameStats = createEmptyGameStats();
-var severalPgns = loopMultipleTwicPgnFiles(1140, 1198);
-var singleFen = getFenStringFromFile("e4-e6-d4-d5-nc3-nf6");
-var firstMoveToAvoid = "c4";
+var severalPgns = loopMultipleTwicPgnFiles(1140, 1140);
+var singleFen = getFenStringFromFile("d4-f5-g3");
+var firstMoveToAvoid = "e4";
 
 // function collectPgnFiles() {
 //     return fs.readdirSync('./pgns');
@@ -38,7 +38,7 @@ function createEmptyGameStats(){
 	return gameStatsObj;
 }
 
-// returns an array containing multiple game strings
+// returns an array containing multiple game strings, where each game string contains move numbers and game result
 function extractGamesFromPgnString(pgnString){
 	var gamesArray = [];
 	var currentIndex = 0;
@@ -72,8 +72,8 @@ function getOneGamesMovesAsString(pgnString, index) {
 	return oneGamesMoves;
 }
 
-// marks one game (game requires numbers and game result) as a W/L/D
-function recordGame(oneGame) {
+// marks one game (oneGame contains/requires move numbers and game result) as a W/L/D
+function recordGame(oneGame, gameStats) {
 	var result = oneGame.slice(-1);
 	switch(result) {
 		case "1":
@@ -86,15 +86,14 @@ function recordGame(oneGame) {
 			gameStats.drawnGame++;
 			break;
 	}
-	// return gameStats;
 }
 
-function recordAllGamesFromGamesArray(gamesArray){
-	for (var i=0; i<gamesArray.length; i++){
-		recordGame(gamesArray[i]);
-	}
-	return gameStats;
-}
+// function recordAllGamesFromGamesArray(gamesArray, gameStats){
+// 	for (var i=0; i<gamesArray.length; i++){
+// 		recordGame(gamesArray[i], gameStats);
+// 	}
+// 	return gameStats;
+// }
 
 function extractGameMoves(game) {
 	var oneGamesMoves = game.split(' ');
@@ -145,12 +144,12 @@ function testAgainstFenString(oneGamesMoves, fenString, fullGame) {
 	}
 	if (match === 1) {
 		// console.log('game is a match!');
-		recordGame(fullGame);
+		recordGame(fullGame, gameStats);
 	}
 }
 
-// updates the 
-function testAllGamesAgainstFen(allGamesArray, fenString){
+// updates gameStats and prints results
+function testAllGamesAgainstFen(allGamesArray, fenString, gameStats){
 	var start = new Date().getTime();
 	var gameToTest; // will just be the game's moves
 	var matchedTotal; // total number of matched games
@@ -176,9 +175,16 @@ function testAllGamesAgainstFen(allGamesArray, fenString){
 
 module.exports = {
 	"severalPgns": severalPgns,
-	"singleFen": singleFen
+	"singleFen": singleFen, 
+	"gameStats": gameStats
 }
 
 module.exports.createEmptyGameStats = createEmptyGameStats;
+module.exports.getPgnsString = getPgnsString;
+module.exports.getFenStringFromFile = getFenStringFromFile;
 module.exports.extractGamesFromPgnString = extractGamesFromPgnString;
+module.exports.getOneGamesMovesAsString = getOneGamesMovesAsString;
+module.exports.loopMultipleTwicPgnFiles = loopMultipleTwicPgnFiles;
 module.exports.testAllGamesAgainstFen = testAllGamesAgainstFen;
+module.exports.recordGame = recordGame;
+module.exports.extractGameMoves = extractGameMoves;
