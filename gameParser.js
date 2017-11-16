@@ -3,13 +3,10 @@ var fs = require('file-system');
 
 var chess = new Chess();
 var gameStats = createEmptyGameStats();
-var severalPgns = loopMultipleTwicPgnFiles(1140, 1140);
+var severalPgns = loopMultipleTwicPgnFiles(1140, 1160);
 var singleFen = getFenStringFromFile("d4-f5-g3");
 var firstMoveToAvoid = "e4";
 
-// function collectPgnFiles() {
-//     return fs.readdirSync('./pgns');
-// }
 
 function getPgnsString(pgnFile){
 	return fs.readFileSync('./pgns/' + pgnFile + '.pgn').toString();
@@ -88,13 +85,7 @@ function recordGame(oneGame, gameStats) {
 	}
 }
 
-// function recordAllGamesFromGamesArray(gamesArray, gameStats){
-// 	for (var i=0; i<gamesArray.length; i++){
-// 		recordGame(gamesArray[i], gameStats);
-// 	}
-// 	return gameStats;
-// }
-
+// extracts the game moves for a single game
 function extractGameMoves(game) {
 	var oneGamesMoves = game.split(' ');
 	var containsMoveNum = /\./;
@@ -106,7 +97,7 @@ function extractGameMoves(game) {
 			//don't push item to gameMoves array if it's a move number
 		}
 		else {
-			if (oneGamesMoves[i].length <=4) {
+			if (oneGamesMoves[i].length <=5) {
 				gameMoves.push(oneGamesMoves[i]);
 			} else {
 				if (containsGameResult.test(oneGamesMoves[i])) {

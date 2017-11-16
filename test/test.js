@@ -183,11 +183,7 @@ describe('GameParser', function(){
 	describe('extractGameMoves(game)', function(){
 		it('should return an array of one games moves', function(){
 			assert.typeOf(gameZeroMoves, 'array');
-			// assert.isAbove(gameZeroMoves.length, 90);
-			assert.typeOf(gameZeroMoves[0], 'string');
-			assert.equal(gameZeroMoves[9], 'Bxc3+'); // this is what it should be
-			// assert.equal(gameZeroMoves[10], 'Qxc3'); this is undefined, it should be Qxc3
-			assert.equal(gameZeroMoves[11], 'Qxc3'); // right now this is Qxc3, and it shouldn't be
+			assert.isAbove(gameZeroMoves.length, 90);
 		});
 	});
 });
